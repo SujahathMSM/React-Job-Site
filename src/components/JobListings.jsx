@@ -1,7 +1,10 @@
 import React from 'react'
 import Jobs from '../jobs.json'
 import JobsList from './JobsList'
+import { useState } from 'react'
 const JobListings = () => {
+
+  const recentJobs = Jobs.slice(0,3);
   return (
     <section className="bg-blue-50 px-4 py-10">
     <div className="container-xl lg:container m-auto">
@@ -10,8 +13,8 @@ const JobListings = () => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-      {Jobs.map((Job) => (
-        <JobsList Job={Job} key={Job.id}/>
+      {recentJobs.map((job) => (
+        <JobsList Job={job} key={job.id}/>
       ))}
         
       </div>
