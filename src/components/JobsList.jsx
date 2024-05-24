@@ -1,5 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
+import {FaMapMarker} from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 const JobsList = ({Job}) => {
 
   const [showFullDescription, setShowFullDescription] = useState(false);
@@ -31,15 +33,15 @@ const JobsList = ({Job}) => {
 
             <div className="flex flex-col lg:flex-row justify-between mb-4">
               <div className="text-orange-700 mb-3">
-                <i className="fa-solid fa-location-dot text-lg"></i>
+                <FaMapMarker className="inline text-lg mb-1 mr-1"/>
                 {Job.location}
               </div>
-              <a
-                href={`/jobs/${Job.id}`}
+              <Link
+                to={`/jobs/${Job.id}`}
                 className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
               >
                 Read More
-              </a>
+              </Link>
             </div>
           </div>
         </div>
