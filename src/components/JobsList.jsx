@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { useState } from 'react'
 import {FaMapMarker} from 'react-icons/fa';
