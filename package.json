@@ -12,7 +12,7 @@
     "server": "json-server --watch src/jobs.json --port 5000"
   },
   "dependencies": {
-    "json-server": "^1.0.0-beta.1",
+    
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.2.1",
@@ -20,6 +20,7 @@
     "react-spinners": "^0.14.1"
   },
   "devDependencies": {
+    "json-server": "^1.0.0-beta.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
