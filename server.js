@@ -1,13 +1,33 @@
+// server.js
 const jsonServer = require('json-server');
+const path = require('path');
+const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
-const server = jsonServer.create();
-const router = jsonServer.router('db.json');
+const app = express();
+const apiServer = jsonServer.create();
+const apiRouter = jsonServer.router(path.join(__dirname, 'src', 'jobs.json'));
 const middlewares = jsonServer.defaults();
-const port = 5000;
 
-server.use(middlewares);
-server.use(router);
+apiServer.use(middlewares);
+apiServer.use('/api', apiRouter);
 
-server.listen(port, () => {
-    console.log(`Test Custom Data API listening on port ${port}!`)
+// Start json-server on a different port
+const apiPort = process.env.API_PORT || 5000;
+apiServer.listen(apiPort, () => {
+  console.log(`JSON Server is running on port ${apiPort}`);
+});
+
+// Vite middleware to serve the front-end
+app.use(
+  '/',
+  createProxyMiddleware({
+    target: 'http://localhost:3000',
+    changeOrigin: true,
+  })
+);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
