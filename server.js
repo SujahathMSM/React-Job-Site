@@ -1,31 +1,24 @@
-// server.js
+const express = require('express');
 const jsonServer = require('json-server');
 const path = require('path');
-const express = require('express');
-const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const app = express();
 const apiServer = jsonServer.create();
 const apiRouter = jsonServer.router(path.join(__dirname, 'src', 'jobs.json'));
 const middlewares = jsonServer.defaults();
 
+// Serve JSON Server API
 apiServer.use(middlewares);
 apiServer.use('/api', apiRouter);
 
-// Start json-server on a different port
+// Start JSON Server on a different port
 const apiPort = process.env.API_PORT || 5000;
 apiServer.listen(apiPort, () => {
   console.log(`JSON Server is running on port ${apiPort}`);
 });
 
-// Vite middleware to serve the front-end
-app.use(
-  '/',
-  createProxyMiddleware({
-    target: 'http://localhost:3000',
-    changeOrigin: true,
-  })
-);
+// Serve the Vite app
+app.use(express.static(path.join(__dirname, 'dist')));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
